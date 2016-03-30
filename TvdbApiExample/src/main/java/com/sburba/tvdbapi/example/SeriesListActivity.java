@@ -20,7 +20,7 @@ import java.util.Collection;
 
 public class SeriesListActivity extends ListActivity {
     private static final String TAG = "SeriesListActivity";
-    private static final String SEARCH_STRING = "the";
+    private static final String SEARCH_STRING = "Gotham";
 
     private TvdbItemAdapter<Series> mSeriesAdapter;
 

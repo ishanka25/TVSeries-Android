@@ -3,15 +3,13 @@ package com.sburba.tvdbapi.example;
 import android.app.Application;
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 public class App extends Application {
-    public static final String TVDB_API_KEY = "<YOUR API KEY HERE>";
+    public static final String TVDB_API_KEY = "23D2DABA796E6B91";
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
