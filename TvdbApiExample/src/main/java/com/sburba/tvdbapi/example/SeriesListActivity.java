@@ -20,7 +20,7 @@ import java.util.Collection;
 
 public class SeriesListActivity extends ListActivity {
     private static final String TAG = "SeriesListActivity";
-    private static final String SEARCH_STRING = "Gotham";
+    private static String SEARCH_STRING = "";
 
     private TvdbItemAdapter<Series> mSeriesAdapter;
 
@@ -32,6 +32,14 @@ public class SeriesListActivity extends ListActivity {
         ImageLoader imageLoader = app.getImageLoader();
         mSeriesAdapter = new TvdbItemAdapter<Series>(this, imageLoader, R.layout.tvdb_item, R.id.title, R.id.image);
         setListAdapter(mSeriesAdapter);
+
+        Bundle userData=getIntent().getExtras();
+
+        if(userData==null){
+            return;
+        }
+
+        SEARCH_STRING = userData.getString("sString");
 
         TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
         tvdbApi.searchSeries(SEARCH_STRING, mSeriesResponseListener, mErrorListener);

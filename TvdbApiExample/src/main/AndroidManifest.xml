@@ -12,17 +12,19 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <activity android:name=".SeasonListActivity" />
+        <activity android:name=".EpisodeListActivity" />
+        <activity android:name=".SeriesListActivity" />
         <activity
-            android:name=".SeriesListActivity"
-            android:label="@string/app_name" >
+            android:name=".search_TV"
+            android:label="@string/title_activity_search__tv" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SeasonListActivity" />
-        <activity android:name=".EpisodeListActivity" />
     </application>
 
 </manifest>
