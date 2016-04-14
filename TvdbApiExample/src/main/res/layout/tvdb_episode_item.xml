@@ -13,7 +13,7 @@
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_card_view"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="120dp"
         android:layout_gravity="center"
 
 
@@ -59,25 +59,28 @@
                 android:paddingTop="12dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
 
 
                     <com.android.volley.toolbox.NetworkImageView
                         android:id="@+id/image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
                         android:layout_gravity="left|center_horizontal"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/err_img" />
+                        android:src="@drawable/err_img"
+                        android:layout_weight="5"
+                        />
 
                     <LinearLayout
-                        android:layout_width="35dp"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:baselineAligned="false"
                         android:orientation="vertical"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
+                        android:layout_weight="2"
                         >
 
                         <RelativeLayout
@@ -128,13 +131,15 @@
 
                     <TextView
                         android:id="@+id/episode_plot"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|top"
                         android:ellipsize="end"
-                        android:maxLines="5"
+                        android:maxLines="4"
                         android:paddingLeft="5dp"
-                        android:text="Plot" />
+                        android:text="Plot"
+                        android:layout_weight="6"
+                        />
                 </LinearLayout>
 
             </FrameLayout>
