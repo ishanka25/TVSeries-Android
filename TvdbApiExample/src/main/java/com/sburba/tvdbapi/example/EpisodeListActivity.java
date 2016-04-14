@@ -30,8 +30,9 @@ public class EpisodeListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App app = App.getInstance(this);
+        //20160414 DILSHAN - To change the return layout to tvdb_episode_item from tvdb_item
         mEpisodeAdapter =
-                new TvdbItemAdapter<Episode>(this, app.getImageLoader(), R.layout.tvdb_item,
+                new TvdbItemAdapter<Episode>(this, app.getImageLoader(), R.layout.tvdb_episode_item,
                                              R.id.title, R.id.image);
 
         setContentView(R.layout.grid_list);

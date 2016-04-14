@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -98,6 +99,8 @@ public class TvdbItemAdapter<T extends TvdbItem> extends BaseAdapter {
         titleView.setText(item.getTitleText());
         if (mImageViewResourceId != NO_RESOURCE) {
             NetworkImageView imageView = ViewHolder.get(convertView, mImageViewResourceId);
+            //20160414 DILSHAN - To scale the image to stretch
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setImageUrl(item.getImageUrl(), mImageLoader);
         }
         if (mDescViewResourceId != NO_RESOURCE) {

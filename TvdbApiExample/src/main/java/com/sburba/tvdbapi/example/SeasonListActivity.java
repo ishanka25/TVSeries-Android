@@ -32,8 +32,9 @@ public class SeasonListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App app = App.getInstance(this);
+        //20160414 DILSHAN - To change the return layout to tvdb_season_item from tvdb_item
         mSeasonAdapter = new TvdbItemAdapter<Season>(this, app.getImageLoader(),
-                                                     R.layout.tvdb_item, R.id.title,
+                                                     R.layout.tvdb_season_item, R.id.title,
                                                      R.id.image);
 
         setContentView(R.layout.grid_list);

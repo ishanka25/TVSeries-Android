@@ -30,7 +30,8 @@ public class SeriesListActivity extends ListActivity {
 
         App app = App.getInstance(this);
         ImageLoader imageLoader = app.getImageLoader();
-        mSeriesAdapter = new TvdbItemAdapter<Series>(this, imageLoader, R.layout.tvdb_item, R.id.title, R.id.image);
+        //20160414 DILSHAN - To change the return layout to tvdb_series_item from tvdb_item
+        mSeriesAdapter = new TvdbItemAdapter<Series>(this, imageLoader, R.layout.tvdb_series_item, R.id.title, R.id.image);
         setListAdapter(mSeriesAdapter);
 
         Bundle userData=getIntent().getExtras();
