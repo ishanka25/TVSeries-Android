@@ -75,7 +75,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="fill_parent"
                         android:baselineAligned="false"
                         android:orientation="vertical"
                         android:paddingLeft="5dp"
@@ -85,7 +85,7 @@
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_weight="1"
 
                             android:background="@color/abc_search_url_text_normal"
@@ -96,9 +96,9 @@
                             <TextView
                                 android:id="@+id/season_id_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:text="01"
+
                                 android:paddingLeft="6dp"
                                 android:paddingTop="13dp"
 
@@ -107,7 +107,7 @@
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_weight="1"
 
                             android:background="@color/primary"
@@ -117,9 +117,9 @@
                             <TextView
                                 android:id="@+id/episode_id_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:text="01"
+
                                 android:textAlignment="center"
                                 android:paddingLeft="6dp"
                                 android:paddingTop="13dp"

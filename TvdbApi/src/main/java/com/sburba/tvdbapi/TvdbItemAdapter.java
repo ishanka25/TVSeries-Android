@@ -120,23 +120,45 @@ public class TvdbItemAdapter<T extends TvdbItem> extends BaseAdapter {
         }
         if (mDescViewResourceId != NO_RESOURCE) {
             TextView descView = ViewHolder.get(convertView, mDescViewResourceId);
-            descView.setText(item.getDescText());
+            Episode epi= (Episode)item;
+            String x=null;
+            x=item.getDescText();
+
+            if(epi.overview.equals(null))
+            {
+                x="No plot found!";
+            }
+
+            descView.setText(x);
         }
 
         if (mSeasonNumViewResourceId != NO_RESOURCE) {
             TextView sesNuView = ViewHolder.get(convertView, mSeasonNumViewResourceId);
             Episode epi= (Episode)item;
 
+            String x=null;
+            x=Integer.toString(epi.seasonNumber);
 
-            sesNuView.setText(Integer.toString(epi.seasonNumber));
+            if(epi.seasonNumber==-1)
+            {
+                x="00";
+            }
+
+            sesNuView.setText(x);
         }
 
         if (mEpisodeNumViewResourceId != NO_RESOURCE) {
             TextView sesNuView = ViewHolder.get(convertView, mEpisodeNumViewResourceId);
             Episode epi= (Episode)item;
+            String x=null;
+            x=(Integer.toString(epi.number));
 
+            if(epi.number==-1)
+            {
+                x="00";
+            }
 
-            sesNuView.setText(Integer.toString(epi.number));
+            sesNuView.setText(x);
         }
 
         return convertView;
