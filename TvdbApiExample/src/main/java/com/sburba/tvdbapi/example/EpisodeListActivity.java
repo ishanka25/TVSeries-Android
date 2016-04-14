@@ -35,7 +35,7 @@ public class EpisodeListActivity extends ListActivity{
         //20160414 DILSHAN - To change the return layout to tvdb_episode_item from tvdb_item
         mEpisodeAdapter =
                 new TvdbItemAdapter<Episode>(this, app.getImageLoader(), R.layout.tvdb_episode_item,
-                                             R.id.title, R.id.image,R.id.episode_plot);
+                                             R.id.title, R.id.image,R.id.episode_plot,R.id.season_id_text,R.id.episode_id_text);
 
         //setContentView(R.layout.grid_list);
       //  GridView gridView = (GridView) findViewById(R.id.grid_view);

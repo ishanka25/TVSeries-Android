@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.sburba.tvdbapi.model.Episode;
 import com.sburba.tvdbapi.model.TvdbItem;
 import com.sburba.tvdbapi.util.ThreadPreconditions;
 
@@ -29,35 +30,47 @@ public class TvdbItemAdapter<T extends TvdbItem> extends BaseAdapter {
     private int mTitleViewResourceId;
     private int mImageViewResourceId;
     private int mDescViewResourceId;
+    private int mSeasonNumViewResourceId;
+    private int mEpisodeNumViewResourceId;
     private List<T> mItemList;
 
     public TvdbItemAdapter(Context context, ImageLoader imageLoader, int resource,
                            int titleViewResourceId) {
-        init(context, imageLoader, resource, titleViewResourceId, NO_RESOURCE, NO_RESOURCE);
+        init(context, imageLoader, resource, titleViewResourceId, NO_RESOURCE, NO_RESOURCE,NO_RESOURCE,NO_RESOURCE);
     }
 
     public TvdbItemAdapter(Context context, ImageLoader imageLoader, int resource,
                            int titleViewResourceId, int networkImageViewResourceId) {
         init(context, imageLoader, resource, titleViewResourceId, networkImageViewResourceId,
-             NO_RESOURCE);
+             NO_RESOURCE,NO_RESOURCE,NO_RESOURCE);
     }
 
     public TvdbItemAdapter(Context context, ImageLoader imageLoader, int resource,
                            int titleViewResourceId, int networkImageViewResourceId,
                            int descViewResourceId) {
         init(context, imageLoader, resource, titleViewResourceId, networkImageViewResourceId,
-             descViewResourceId);
+             descViewResourceId,NO_RESOURCE,NO_RESOURCE);
     }
+
+    public TvdbItemAdapter(Context context, ImageLoader imageLoader, int resource,
+                           int titleViewResourceId, int networkImageViewResourceId,
+                           int descViewResourceId,int seasonNumViewId,int episodeNumViewId) {
+        init(context, imageLoader, resource, titleViewResourceId, networkImageViewResourceId,
+                descViewResourceId,seasonNumViewId,episodeNumViewId);
+    }
+
 
     private void init(Context context, ImageLoader imageLoader, int resource,
                       int titleViewResourceId, int networkImageViewResourceId,
-                      int descViewResourceId) {
+                      int descViewResourceId,int seasonNumViewId,int episodeNumViewId) {
         mContext = context;
         mImageLoader = imageLoader;
         mResource = resource;
         mTitleViewResourceId = titleViewResourceId;
         mImageViewResourceId = networkImageViewResourceId;
         mDescViewResourceId = descViewResourceId;
+        mSeasonNumViewResourceId=seasonNumViewId;
+        mEpisodeNumViewResourceId=episodeNumViewId;
         mItemList = new ArrayList<T>();
     }
 
@@ -109,6 +122,23 @@ public class TvdbItemAdapter<T extends TvdbItem> extends BaseAdapter {
             TextView descView = ViewHolder.get(convertView, mDescViewResourceId);
             descView.setText(item.getDescText());
         }
+
+        if (mSeasonNumViewResourceId != NO_RESOURCE) {
+            TextView sesNuView = ViewHolder.get(convertView, mSeasonNumViewResourceId);
+            Episode epi= (Episode)item;
+
+
+            sesNuView.setText(Integer.toString(epi.seasonNumber));
+        }
+
+        if (mEpisodeNumViewResourceId != NO_RESOURCE) {
+            TextView sesNuView = ViewHolder.get(convertView, mEpisodeNumViewResourceId);
+            Episode epi= (Episode)item;
+
+
+            sesNuView.setText(Integer.toString(epi.number));
+        }
+
         return convertView;
     }
 
