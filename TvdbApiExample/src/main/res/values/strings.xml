@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TvdbApiExample</string>
+    <string name="app_name">TV Series</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_season_list">Seasons</string>
-    <string name="title_activity_search__tv">search_TV</string>
+    <string name="title_activity_search__tv">Search a TV series</string>
 
 </resources>

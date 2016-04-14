@@ -44,6 +44,8 @@ public class SeriesListActivity extends ListActivity {
 
         TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
         tvdbApi.searchSeries(SEARCH_STRING, mSeriesResponseListener, mErrorListener);
+
+        this.setTitle(SEARCH_STRING);
     }
 
     @Override
@@ -56,10 +58,16 @@ public class SeriesListActivity extends ListActivity {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Toast.makeText(this, mSeriesAdapter.getItem(position).getTitleText(), Toast.LENGTH_SHORT).show();
+
         Series series = mSeriesAdapter.getItem(position);
+
         Intent seasonList = new Intent(this, SeasonListActivity.class);
+        seasonList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        seasonList.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
         seasonList.putExtra(SeasonListActivity.EXTRA_SERIES, series);
+        seasonList.putExtra("sTitle", mSeriesAdapter.getItem(position).getTitleText());
+
         startActivity(seasonList);
     }
 

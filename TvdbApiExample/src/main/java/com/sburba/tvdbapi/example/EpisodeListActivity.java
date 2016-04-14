@@ -46,10 +46,18 @@ public class EpisodeListActivity extends ListActivity{
 
         Intent intent = getIntent();
         Season season = intent.getParcelableExtra(EXTRA_SEASON);
+
         if (season != null) {
             TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
             tvdbApi.getEpisodes(season, mEpisodeResponseListener, mErrorListener);
         }
+
+        Bundle seasonTitle=getIntent().getExtras();
+        if(seasonTitle==null){
+            return;
+        }
+
+        this.setTitle("Season "+(seasonTitle.getString("sTitle")).substring(1, 3));
 
     }
 

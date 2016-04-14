@@ -44,10 +44,18 @@ public class SeasonListActivity extends Activity {
 
         Intent intent = getIntent();
         Series series = intent.getParcelableExtra(EXTRA_SERIES);
+
         if (series != null) {
             TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
             tvdbApi.getSeasons(series, mSeasonResponseListener, mErrorListener);
         }
+
+        Bundle seriesTitle=getIntent().getExtras();
+        if(seriesTitle==null){
+            return;
+        }
+
+        this.setTitle(seriesTitle.getString("sTitle"));
 
     }
 
@@ -63,13 +71,16 @@ public class SeasonListActivity extends Activity {
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(SeasonListActivity.this,
-                                   mSeasonAdapter.getItem(position).getTitleText(),
-                                   Toast.LENGTH_SHORT).show();
+
                     Intent episodeList =
                             new Intent(SeasonListActivity.this, EpisodeListActivity.class);
+                    episodeList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    episodeList.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
                     episodeList.putExtra(EpisodeListActivity.EXTRA_SEASON,
                                          mSeasonAdapter.getItem(position));
+                    episodeList.putExtra("sTitle", mSeasonAdapter.getItem(position).getTitleText());
+
                     startActivity(episodeList);
                 }
             };
