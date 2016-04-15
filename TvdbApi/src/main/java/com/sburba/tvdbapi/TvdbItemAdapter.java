@@ -139,11 +139,6 @@ public class TvdbItemAdapter<T extends TvdbItem> extends BaseAdapter {
             String x=null;
             x=Integer.toString(epi.seasonNumber);
 
-            if(epi.seasonNumber==-1)
-            {
-                x="00";
-            }
-
             sesNuView.setText(x);
         }
 
@@ -152,11 +147,6 @@ public class TvdbItemAdapter<T extends TvdbItem> extends BaseAdapter {
             Episode epi= (Episode)item;
             String x=null;
             x=(Integer.toString(epi.number));
-
-            if(epi.number==-1)
-            {
-                x="00";
-            }
 
             sesNuView.setText(x);
         }
