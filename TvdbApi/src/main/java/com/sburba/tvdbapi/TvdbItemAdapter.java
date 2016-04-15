@@ -124,7 +124,7 @@ public class TvdbItemAdapter<T extends TvdbItem> extends BaseAdapter {
             String x=null;
             x=item.getDescText();
 
-            if(epi.overview.equals(null))
+            if(epi.overview.trim().length()==0)
             {
                 x="No plot found!";
             }

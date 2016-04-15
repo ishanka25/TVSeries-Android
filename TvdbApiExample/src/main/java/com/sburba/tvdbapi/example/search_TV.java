@@ -47,7 +47,7 @@ public class search_TV extends Activity {
         final EditText txtSearch=(EditText)findViewById(R.id.txtSearch);
         String search=txtSearch.getText().toString();
 
-        if (search=="")
+        if (search.trim().length()==0)
         {
             Toast.makeText(this, "Enter a name to search!",
                     Toast.LENGTH_SHORT).show();
