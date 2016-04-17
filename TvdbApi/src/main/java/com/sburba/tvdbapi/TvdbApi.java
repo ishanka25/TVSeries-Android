@@ -192,7 +192,7 @@ public class TvdbApi {
                            Response.Listener<Episode> listener,
                            Response.ErrorListener errorListener) {
         getEpisode(series, seasonNumber, episodeNumber, SHOW_ORDER.DEFAULT, listener,
-                   errorListener);
+                errorListener);
     }
 
     /**
@@ -346,6 +346,10 @@ public class TvdbApi {
                                          errorListener);
 
         mRequestQueue.add(actorRequest);
+    }
+
+    public String getSeriesZipFilePath(int seriesId){
+        return getSeriesRequestUrl(seriesId);
     }
 
     private String getSeriesRequestUrl(int seriesId) {

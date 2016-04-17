@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -25,7 +26,7 @@ public class SeasonListActivity extends Activity {
     public static final String EXTRA_SERIES = "series";
 
     private static final String TAG = "SeasonListActivity";
-
+    int currentSerisId=-1;
     private TvdbItemAdapter<Season> mSeasonAdapter;
 
     @Override
@@ -44,7 +45,7 @@ public class SeasonListActivity extends Activity {
 
         Intent intent = getIntent();
         Series series = intent.getParcelableExtra(EXTRA_SERIES);
-
+        currentSerisId=series.id;
         if (series != null) {
             TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
             tvdbApi.getSeasons(series, mSeasonResponseListener, mErrorListener);
@@ -63,8 +64,55 @@ public class SeasonListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.season_list, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.add_button:
+                onAddClick();
+
+                return true;
+            case R.id.action_settings:
+                Toast.makeText(SeasonListActivity.this, "Settings",
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    public void onAddClick(){
+        if(currentSerisId!=-1){
+            App app = App.getInstance(this);
+            TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
+            String zipUrl=tvdbApi.getSeriesZipFilePath(currentSerisId);
+
+
+
+            if (zipUrl!=null){
+                DownloadFiles x =new DownloadFiles();
+                boolean y =x.downloadFromUrl(zipUrl, Integer.toString(currentSerisId).toString(),"en","zip");
+
+                if(y)
+                {
+                    Toast.makeText(SeasonListActivity.this, "Added Susscessfully",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(SeasonListActivity.this, "Error!!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+
+        }
+
     }
 
     private AdapterView.OnItemClickListener mOnSeasonSelectedListener =

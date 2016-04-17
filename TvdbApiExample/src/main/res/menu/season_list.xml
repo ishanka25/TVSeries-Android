@@ -2,5 +2,13 @@
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_settings_applications_white_24dp"
         android:showAsAction="never" />
+
+    <item android:id="@+id/add_button"
+        android:title="Add"
+        android:orderInCategory="200"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_add_to_queue_white_24dp"
+        />
 </menu>
