@@ -67,7 +67,7 @@ public class SeriesListActivity extends ListActivity {
 
         seasonList.putExtra(SeasonListActivity.EXTRA_SERIES, series);
         seasonList.putExtra("sTitle", mSeriesAdapter.getItem(position).getTitleText());
-
+        seasonList.putExtra("sImgPath", mSeriesAdapter.getItem(position).getImageUrl());
         startActivity(seasonList);
     }
 

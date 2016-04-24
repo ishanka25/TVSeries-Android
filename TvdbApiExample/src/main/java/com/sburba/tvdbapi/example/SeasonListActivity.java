@@ -27,6 +27,8 @@ public class SeasonListActivity extends Activity {
 
     private static final String TAG = "SeasonListActivity";
     int currentSerisId=-1;
+    private String current_img_path="drawable-xhdpi/ab_bottom_solid_light_holo.9.png";
+    private String current_series_title="";
     private TvdbItemAdapter<Season> mSeasonAdapter;
 
     @Override
@@ -55,11 +57,29 @@ public class SeasonListActivity extends Activity {
         if(seriesTitle==null){
             return;
         }
-
+        this.current_img_path=seriesTitle.getString("sImgPath");
+        this.current_series_title=seriesTitle.getString("sTitle");
         this.setTitle(seriesTitle.getString("sTitle"));
+
 
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem item = menu.findItem(R.id.add_button);
+        TvDbDBAdapter dbadapter = new TvDbDBAdapter( this);
+        boolean myItemExist=dbadapter.checkSeriesExist(currentSerisId);
+        if (!myItemExist) {
+            item.setEnabled(true);
+            item.getIcon().setAlpha(255);
+        } else {
+            // disabled
+            item.setEnabled(false);
+            item.getIcon().setAlpha(130);
+        }
+        return true;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,15 +116,31 @@ public class SeasonListActivity extends Activity {
 
             if (zipUrl!=null){
                 DownloadFiles x =new DownloadFiles();
-                boolean y =x.downloadFromUrl(zipUrl, Integer.toString(currentSerisId).toString(),"en","zip");
+                boolean zipCheck =x.downloadFromUrl(zipUrl, Integer.toString(currentSerisId).toString(),"en","zip");
 
-                if(y)
-                {
-                    Toast.makeText(SeasonListActivity.this, "Added Susscessfully",
-                            Toast.LENGTH_SHORT).show();
+                if(zipCheck) {
+
+                    boolean imgCheck=x.downloadFromUrl(this.current_img_path,Integer.toString(currentSerisId).toString(),"Banner","jpg");
+                    if(imgCheck){
+
+                        TvDbDBAdapter dbadapter = new TvDbDBAdapter( this);
+                        long id=dbadapter.InsertMySeriesData(currentSerisId,current_series_title,this.current_img_path);
+                        if(id>0) {
+                            Toast.makeText(SeasonListActivity.this,"Success",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(SeasonListActivity.this, "DB error!!!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(SeasonListActivity.this, "Img Connection Error!!!",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
-                    Toast.makeText(SeasonListActivity.this, "Error!!!",
+                    Toast.makeText(SeasonListActivity.this, "Connection Error!!!",
                             Toast.LENGTH_SHORT).show();
                 }
 
