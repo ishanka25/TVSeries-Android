@@ -30,7 +30,7 @@ public class SeasonListActivity extends Activity {
     private String current_img_path="drawable-xhdpi/ab_bottom_solid_light_holo.9.png";
     private String current_series_title="";
     private TvdbItemAdapter<Season> mSeasonAdapter;
-
+    private Menu thismenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +67,11 @@ public class SeasonListActivity extends Activity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
+        addButtoneEnabler(menu);
+        return true;
+    }
+
+    public void addButtoneEnabler(Menu menu){
         MenuItem item = menu.findItem(R.id.add_button);
         TvDbDBAdapter dbadapter = new TvDbDBAdapter( this);
         boolean myItemExist=dbadapter.checkSeriesExist(currentSerisId);
@@ -78,13 +83,13 @@ public class SeasonListActivity extends Activity {
             item.setEnabled(false);
             item.getIcon().setAlpha(130);
         }
-        return true;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.season_list, menu);
+        thismenu=menu;
         return true;
     }
 
@@ -126,6 +131,7 @@ public class SeasonListActivity extends Activity {
                         TvDbDBAdapter dbadapter = new TvDbDBAdapter( this);
                         long id=dbadapter.InsertMySeriesData(currentSerisId,current_series_title,this.current_img_path);
                         if(id>0) {
+                            addButtoneEnabler(thismenu);
                             Toast.makeText(SeasonListActivity.this,"Success",
                                     Toast.LENGTH_SHORT).show();
                         }
