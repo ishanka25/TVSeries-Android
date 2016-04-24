@@ -30,7 +30,7 @@ public class TvdbApi {
     private static final String BASE_URL = "http://thetvdb.com/api/";
     private static final String SERIES_SEARCH = BASE_URL + "GetSeries.php?seriesname=";
     private static final String IMDB_SERIES_SEARCH = BASE_URL + "GetSeriesByRemoteID.php?imdbid=";
-
+    private final String LOCAL_PATH = "/data/data/com.sburba.tvdbapi.example/";
     private final String mApiKey;
     private final String mLanguage;
     private final RequestQueue mRequestQueue;
@@ -121,6 +121,20 @@ public class TvdbApi {
 
         mRequestQueue.add(seasonRequest);
     }
+
+    //TEST
+
+    public void getLocalSeasons(int seriesId, Response.Listener<Collection<Season>> listener,
+                           Response.ErrorListener errorListener) {
+        String requestUrl = getLocalZipPath(seriesId);
+
+        ZippedXmlObjectListRequest<Season, SeasonListParser> seasonRequest =
+                new ZippedXmlObjectListRequest<Season, SeasonListParser>(
+                        new SeasonListParser(mLanguage), requestUrl, listener, errorListener);
+
+        mRequestQueue.add(seasonRequest);
+    }
+    //TEST END
 
     /**
      * Get all of the {@link Episode}s for a given {@link Series}
@@ -354,6 +368,10 @@ public class TvdbApi {
 
     private String getSeriesRequestUrl(int seriesId) {
         return BASE_URL + mApiKey + "/series/" + seriesId + "/all/" + mLanguage + ".zip";
+    }
+
+    private String getLocalZipPath(int seriesId) {
+        return LOCAL_PATH +Integer.toString(seriesId)+ "/en.zip";
     }
 
     public static enum SHOW_ORDER {DEFAULT, DVD, ABSOLUTE}

@@ -83,6 +83,13 @@ public class DownloadFiles  extends AsyncTask<String,Void,Void> {
             bis.close();
             is.close();
 
+            if(surl[3].equalsIgnoreCase("zip")){
+                String zipFile=PATH +surl[1]+"/"+surl[2]+"."+surl[3];
+                String unzipLocation=PATH +surl[1]+"/"+surl[2]+"."+surl[3];
+
+                Decompress d = new Decompress(zipFile, unzipLocation);
+                d.unzip();
+            }
 
         } catch (Exception e5) {
             e5.printStackTrace();

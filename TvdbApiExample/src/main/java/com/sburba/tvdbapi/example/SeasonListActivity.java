@@ -131,6 +131,7 @@ public class SeasonListActivity extends Activity {
                         TvDbDBAdapter dbadapter = new TvDbDBAdapter( this);
                         long id=dbadapter.InsertMySeriesData(currentSerisId,current_series_title,this.current_img_path);
                         if(id>0) {
+
                             addButtoneEnabler(thismenu);
                             Toast.makeText(SeasonListActivity.this,"Success",
                                     Toast.LENGTH_SHORT).show();
