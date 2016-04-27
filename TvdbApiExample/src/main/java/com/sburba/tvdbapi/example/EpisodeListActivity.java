@@ -98,7 +98,27 @@ public class EpisodeListActivity extends ListActivity{
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
+
+        Intent i=new Intent(this,episodeInfo.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
         super.onListItemClick(l, v, position, id);
-        Toast.makeText(this, mEpisodeAdapter.getItem(position).getDescText(), Toast.LENGTH_SHORT).show();
+
+        float rating=mEpisodeAdapter.getItem(position).rating;
+        String plot=mEpisodeAdapter.getItem(position).overview;
+        String title=mEpisodeAdapter.getItem(position).getTitleText();
+        String imgURL=mEpisodeAdapter.getItem(position).getImageUrl();
+        int season=mEpisodeAdapter.getItem(position).seasonNumber;
+        int epNo=mEpisodeAdapter.getItem(position).number;
+
+        i.putExtra("rating", rating);
+        i.putExtra("plot",plot);
+        i.putExtra("title",title);
+        i.putExtra("imgURL",imgURL);
+        i.putExtra("season",season);
+        i.putExtra("epNo",epNo);
+
+        startActivity(i);
     }
 }

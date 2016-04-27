@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sburba.tvdbapi.example"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -13,30 +13,31 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MyTVSeriesActivity"
-            android:label="@string/title_activity_my_tvseries">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SeasonListActivity" />
         <activity android:name=".EpisodeListActivity" />
         <activity android:name=".SeriesListActivity" />
         <activity
             android:name=".search_TV"
             android:label="@string/app_name"
-            android:parentActivityName=".MyTVSeriesActivity">
-
+            android:parentActivityName=".MyTVSeriesActivity" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".episodeInfo"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
