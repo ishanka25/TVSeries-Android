@@ -17,20 +17,23 @@ import com.sburba.tvdbapi.TvdbApi;
 import com.sburba.tvdbapi.TvdbItemAdapter;
 import com.sburba.tvdbapi.model.Banner;
 import com.sburba.tvdbapi.model.Season;
-import com.sburba.tvdbapi.model.Series;
 
 import java.util.Collection;
 
 public class SeasonListActivity extends Activity {
 
-    public static final String EXTRA_SERIES = "series";
-
     private static final String TAG = "SeasonListActivity";
+
     int currentSerisId=-1;
+
     private String current_img_path="drawable-xhdpi/ab_bottom_solid_light_holo.9.png";
+
     private String current_series_title="";
+
     private TvdbItemAdapter<Season> mSeasonAdapter;
+
     private Menu thismenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,22 +48,23 @@ public class SeasonListActivity extends Activity {
         gridView.setOnItemClickListener(mOnSeasonSelectedListener);
         gridView.setAdapter(mSeasonAdapter);
 
-        Intent intent = getIntent();
-        Series series = intent.getParcelableExtra(EXTRA_SERIES);
-        currentSerisId=series.id;
-        if (series != null) {
-            TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
-            tvdbApi.getSeasons(series, mSeasonResponseListener, mErrorListener);
-        }
-
-        Bundle seriesTitle=getIntent().getExtras();
-        if(seriesTitle==null){
+        Bundle seriesTitle = getIntent().getExtras();
+        if (seriesTitle == null) {
             return;
         }
-        this.current_img_path=seriesTitle.getString("sImgPath");
-        this.current_series_title=seriesTitle.getString("sTitle");
-        this.setTitle(seriesTitle.getString("sTitle"));
 
+        currentSerisId = seriesTitle.getInt("sID");
+
+        //20160429 ISHANKA RANATUNGA - removed so much of shits
+
+            if (currentSerisId!=-1){
+                TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
+                tvdbApi.getSeasons(currentSerisId, mSeasonResponseListener, mErrorListener);
+            }
+
+            this.current_img_path = seriesTitle.getString("sImgPath");
+            this.current_series_title = seriesTitle.getString("sTitle");
+            this.setTitle(seriesTitle.getString("sTitle"));
 
     }
 

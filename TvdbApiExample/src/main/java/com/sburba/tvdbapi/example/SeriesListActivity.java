@@ -59,13 +59,11 @@ public class SeriesListActivity extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        Series series = mSeriesAdapter.getItem(position);
-
         Intent seasonList = new Intent(this, SeasonListActivity.class);
         seasonList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         seasonList.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        seasonList.putExtra(SeasonListActivity.EXTRA_SERIES, series);
+        seasonList.putExtra("sID", mSeriesAdapter.getItem(position).id);
         seasonList.putExtra("sTitle", mSeriesAdapter.getItem(position).getTitleText());
         seasonList.putExtra("sImgPath", mSeriesAdapter.getItem(position).getImageUrl());
         startActivity(seasonList);
