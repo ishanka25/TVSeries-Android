@@ -56,7 +56,7 @@ public class SeasonListActivity extends Activity {
 
         currentSerisId = seriesTitle.getInt("sID");
 
-        //20160429 ISHANKA RANATUNGA - removed so much of shits
+
 
             if (currentSerisId!=-1){
                 TvdbApi tvdbApi = new TvdbApi(App.TVDB_API_KEY, "en", app.getRequestQueue());
@@ -135,7 +135,7 @@ public class SeasonListActivity extends Activity {
                 current_series_title=result[0];
                 current_img_path=result[1];
                 int count=dbadapter.deleteRow(currentSerisId);
-                Log.e("DIFNLK",Integer.toOctalString(count));
+
                 if(count>0) {
                     File dir = new File("/data/data/com.sburba.tvdbapi.example/" + Integer.toString(currentSerisId));
                     if (dir.isDirectory()) {
