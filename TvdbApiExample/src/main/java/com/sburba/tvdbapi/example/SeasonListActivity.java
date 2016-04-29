@@ -123,10 +123,7 @@ public class SeasonListActivity extends Activity {
 
 
                 return true;
-            case R.id.action_settings:
-                Toast.makeText(SeasonListActivity.this, "Settings",
-                        Toast.LENGTH_SHORT).show();
-                return true;
+
             case R.id.about_season:
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;

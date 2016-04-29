@@ -45,6 +45,8 @@ public class MyTVSeriesActivity extends Activity {
                 })
         );
 
+
+
         Log.v("Example", "onCreate");
         getIntent().setAction("Already created");
     }
@@ -75,13 +77,13 @@ public class MyTVSeriesActivity extends Activity {
 
                 startActivity(i);
                 return true;
-            case R.id.myseries_settings:
+           // case R.id.myseries_settings:
                 //RefreshAirDatesDB redb=new RefreshAirDatesDB(this);
                 //redb.RefreshAllDates();
-                this.startService(new Intent(this, MyNotificationService.class));
+             //   this.startService(new Intent(this, MyNotificationService.class));
               //  RefreshZips rezip=new RefreshZips(this);
               //  rezip.RefreshAllZips();
-                return true;
+               // return true;
 
             case R.id.about_my_series:
                 startActivity(new Intent(this,AboutActivity.class));
@@ -122,5 +124,7 @@ public class MyTVSeriesActivity extends Activity {
 
         super.onResume();
     }
+
+
 
 }
