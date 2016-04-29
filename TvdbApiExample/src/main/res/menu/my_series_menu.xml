@@ -14,4 +14,9 @@
         android:icon="@drawable/ic_search_white_24dp"
         />
 
+    <item android:id="@+id/about_my_series"
+        android:title="About"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
 </menu>

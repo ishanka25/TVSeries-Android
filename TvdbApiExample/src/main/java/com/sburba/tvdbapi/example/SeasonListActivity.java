@@ -82,17 +82,23 @@ public class SeasonListActivity extends Activity {
         TvDbDBAdapter dbadapter = new TvDbDBAdapter( this);
         boolean myItemExist=dbadapter.checkSeriesExist(currentSerisId);
         if (!myItemExist) {
-            item.setEnabled(true);
-            item.getIcon().setAlpha(255);
-            item2.setEnabled(false);
-            item2.getIcon().setAlpha(130);
+           // item.setEnabled(true);
+         //   item.getIcon().setAlpha(255);
+            item.setVisible(true);
+            item2.setVisible(false);
+
+          //  item2.setEnabled(false);
+            //item2.getIcon().setAlpha(130);
 
         } else {
-            item2.setEnabled(true);
-            item2.getIcon().setAlpha(255);
-            item.setEnabled(false);
-            item.getIcon().setAlpha(130);
+            //item2.setEnabled(true);
+            //item2.getIcon().setAlpha(255);
+            //item.setEnabled(false);
+            //item.getIcon().setAlpha(130);
+            item.setVisible(false);
+            item2.setVisible(true);
         }
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -121,6 +127,10 @@ public class SeasonListActivity extends Activity {
                 Toast.makeText(SeasonListActivity.this, "Settings",
                         Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.about_season:
+                startActivity(new Intent(this, AboutActivity.class));
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 

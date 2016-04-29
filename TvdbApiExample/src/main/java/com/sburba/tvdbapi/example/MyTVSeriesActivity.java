@@ -82,6 +82,11 @@ public class MyTVSeriesActivity extends Activity {
               //  RefreshZips rezip=new RefreshZips(this);
               //  rezip.RefreshAllZips();
                 return true;
+
+            case R.id.about_my_series:
+                startActivity(new Intent(this,AboutActivity.class));
+                return true;
+            
             default:
                 return super.onOptionsItemSelected(item);
 

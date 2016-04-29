@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name=".episodeInfo"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <service
             android:name=".RefreshAirDates"
@@ -44,7 +44,10 @@
 
         <activity
             android:name=".TestActivity"
-            android:label="@string/title_activity_test"></activity>
+            android:label="@string/title_activity_test" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"></activity>
     </application>
 
 </manifest>

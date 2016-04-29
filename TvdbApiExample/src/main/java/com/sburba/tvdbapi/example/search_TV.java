@@ -36,6 +36,11 @@ public class search_TV extends Activity {
             return true;
         }
 
+        if (id == R.id.about_search) {
+            startActivity(new Intent(this,AboutActivity.class));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

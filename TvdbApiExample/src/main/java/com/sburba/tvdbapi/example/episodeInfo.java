@@ -1,6 +1,7 @@
 package com.sburba.tvdbapi.example;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,6 +61,10 @@ public class episodeInfo extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.about_epi) {
+            startActivity(new Intent(this,AboutActivity.class));
             return true;
         }
 
