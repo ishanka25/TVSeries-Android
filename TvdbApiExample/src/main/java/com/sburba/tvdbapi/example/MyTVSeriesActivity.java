@@ -79,9 +79,9 @@ public class MyTVSeriesActivity extends Activity {
                 startActivity(i);
                 return true;
             case R.id.myseries_settings:
-                 RefreshAirDatesDB redb=new RefreshAirDatesDB(this);
-                redb.RefreshAllDates();
-
+                //RefreshAirDatesDB redb=new RefreshAirDatesDB(this);
+                //redb.RefreshAllDates();
+                this.startService(new Intent(this, MyNotificationService.class));
               //  RefreshZips rezip=new RefreshZips(this);
               //  rezip.RefreshAllZips();
                 return true;

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class TvDbDBAdapter {
         SQLiteDatabase db=helper.getWritableDatabase();
         this.InsertAirDates(99,99,99,99,99,"no plot",new Date());
         int count =db.delete(TvDbConnectionHelper.AIRDATES_TABLE_NAME,null,null);
-
+ //db.close();
         return  count;
     }
 
@@ -35,7 +36,7 @@ public class TvDbDBAdapter {
         this.InsertAirDates(99,99,99,99,99,"no plot",new Date());
         String[] whereArgs={Integer.toString(sId)};
         int count =db.delete(TvDbConnectionHelper.AIRDATES_TABLE_NAME,TvDbConnectionHelper.SERIES_ID + "=?",whereArgs);
-
+ //db.close();
         return  count;
     }
 
@@ -55,6 +56,7 @@ public class TvDbDBAdapter {
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(airDate));
 
         long id=db.insert(TvDbConnectionHelper.AIRDATES_TABLE_NAME, null, cv);
+         //db.close();
         return id;
     }
 
@@ -65,7 +67,7 @@ public class TvDbDBAdapter {
         SQLiteDatabase db=helper.getWritableDatabase();
         String[] whereArgs={Integer.toString(sId)};
         int count =db.delete(TvDbConnectionHelper.SERIES_TABLE_NAME, TvDbConnectionHelper.SERIES_ID + "=?", whereArgs);
-
+ //db.close();
         return  count;
     }
 
@@ -79,6 +81,7 @@ public class TvDbDBAdapter {
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
         long id=db.insert(TvDbConnectionHelper.SERIES_TABLE_NAME, null, cv);
+         //db.close();
         return id;
     }
 
@@ -93,7 +96,8 @@ public class TvDbDBAdapter {
 
             title=cursor.getString(index_title);
         }
-
+         //cursor.close();
+ //db.close();
         if(!title.equals("-99")){
             return true;
         }
@@ -115,6 +119,8 @@ public class TvDbDBAdapter {
             imgurl=cursor.getString(index_img);
         }
         String[] result={title,imgurl};
+        // //cursor.close();
+         //db.close();
         return result;
     }
 
@@ -135,9 +141,62 @@ public class TvDbDBAdapter {
             current.setTitle(title);
             data.add(current);
         }
+         //cursor.close();
+         //db.close();
 
         return data;
     }
+
+
+    public List<EpisodeAirdateModel> getTodayEpisodes(){
+        SQLiteDatabase db=helper.getWritableDatabase();
+        String[] Columns
+                ={TvDbConnectionHelper.SERIES_ID,TvDbConnectionHelper.SEASON_ID,
+                TvDbConnectionHelper.EPISODE_ID,TvDbConnectionHelper.SEASON_NO,TvDbConnectionHelper.EPISODE_NO,
+                TvDbConnectionHelper.EPISODE_TITLE,TvDbConnectionHelper.AIR_DATE};
+
+        List<EpisodeAirdateModel> data=new ArrayList<EpisodeAirdateModel>();
+        int sid=-1;
+        int sesid=-1;
+        int epid=-1;
+        int sesNo=-1;
+        int epno=-1;
+        String eptitle="";
+
+
+        Cursor cursor=db.query(TvDbConnectionHelper.AIRDATES_TABLE_NAME,Columns,"date("+TvDbConnectionHelper.AIR_DATE+") =date('now')",null,null,null,null);
+        while(cursor.moveToNext()){
+
+            int index_sid=cursor.getColumnIndex(TvDbConnectionHelper.SERIES_ID);
+            int index_sesid=cursor.getColumnIndex(TvDbConnectionHelper.SEASON_ID);
+            int index_epid=cursor.getColumnIndex(TvDbConnectionHelper.EPISODE_ID);
+            int index_sesno=cursor.getColumnIndex(TvDbConnectionHelper.SEASON_NO);
+            int index_epno=cursor.getColumnIndex(TvDbConnectionHelper.EPISODE_NO);
+            int index_eptitle=cursor.getColumnIndex(TvDbConnectionHelper.EPISODE_TITLE);
+
+            sid=cursor.getInt(index_sid);
+             sesid=cursor.getInt(index_sesid);
+             epid=cursor.getInt(index_epid);
+             sesNo=cursor.getInt(index_sesno);
+             epno=cursor.getInt(index_epno);
+            eptitle=cursor.getString(index_eptitle);
+
+            EpisodeAirdateModel current=new EpisodeAirdateModel();
+
+            current.sid=sid;
+            current.sesid=sesid;
+            current.epid=epid;
+            current.sesNo=sesNo;
+            current.epno=epno;
+            current.eptitle=eptitle;
+
+            data.add(current);
+        }
+         //cursor.close();
+         //db.close();
+        return data;
+    }
+
 
     public int[] getAllSeriesId( ){
         SQLiteDatabase db=helper.getWritableDatabase();
@@ -153,7 +212,8 @@ public class TvDbDBAdapter {
             index++;
 
         }
-
+         //cursor.close();
+         //db.close();
         return data;
     }
 
