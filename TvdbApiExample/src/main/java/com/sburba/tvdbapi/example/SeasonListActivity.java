@@ -18,6 +18,7 @@ import com.sburba.tvdbapi.TvdbItemAdapter;
 import com.sburba.tvdbapi.model.Banner;
 import com.sburba.tvdbapi.model.Season;
 
+import java.io.File;
 import java.util.Collection;
 
 public class SeasonListActivity extends Activity {
@@ -62,8 +63,8 @@ public class SeasonListActivity extends Activity {
                 tvdbApi.getSeasons(currentSerisId, mSeasonResponseListener, mErrorListener);
             }
 
-            this.current_img_path = seriesTitle.getString("sImgPath");
-            this.current_series_title = seriesTitle.getString("sTitle");
+            current_img_path = seriesTitle.getString("sImgPath");
+           current_series_title = seriesTitle.getString("sTitle");
             this.setTitle(seriesTitle.getString("sTitle"));
 
     }
@@ -77,13 +78,18 @@ public class SeasonListActivity extends Activity {
 
     public void addButtoneEnabler(Menu menu){
         MenuItem item = menu.findItem(R.id.add_button);
+        MenuItem item2 = menu.findItem(R.id.remove_button);
         TvDbDBAdapter dbadapter = new TvDbDBAdapter( this);
         boolean myItemExist=dbadapter.checkSeriesExist(currentSerisId);
         if (!myItemExist) {
             item.setEnabled(true);
             item.getIcon().setAlpha(255);
+            item2.setEnabled(false);
+            item2.getIcon().setAlpha(130);
+
         } else {
-            // disabled
+            item2.setEnabled(true);
+            item2.getIcon().setAlpha(255);
             item.setEnabled(false);
             item.getIcon().setAlpha(130);
         }
@@ -105,6 +111,12 @@ public class SeasonListActivity extends Activity {
                 onAddClick();
 
                 return true;
+
+            case R.id.remove_button:
+                onRemoveClick();
+
+
+                return true;
             case R.id.action_settings:
                 Toast.makeText(SeasonListActivity.this, "Settings",
                         Toast.LENGTH_SHORT).show();
@@ -113,6 +125,41 @@ public class SeasonListActivity extends Activity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    public void onRemoveClick(){
+        if(currentSerisId!=-1){
+            try{
+                TvDbDBAdapter dbadapter = new TvDbDBAdapter( this);
+                String[] result=dbadapter.getSeriesTitle(currentSerisId);
+                current_series_title=result[0];
+                current_img_path=result[1];
+                int count=dbadapter.deleteRow(currentSerisId);
+                Log.e("DIFNLK",Integer.toOctalString(count));
+                if(count>0) {
+                    File dir = new File("/data/data/com.sburba.tvdbapi.example/" + Integer.toString(currentSerisId));
+                    if (dir.isDirectory()) {
+                        String[] children = dir.list();
+                        for (int i = 0; i < children.length; i++) {
+                            new File(dir, children[i]).delete();
+                        }
+                        dir.delete();
+
+                        addButtoneEnabler(thismenu);
+                        Toast.makeText(SeasonListActivity.this, "Removed",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(SeasonListActivity.this, "Error!!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }catch(Exception ex){
+                Toast.makeText(SeasonListActivity.this, "Error!!!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     public void onAddClick(){

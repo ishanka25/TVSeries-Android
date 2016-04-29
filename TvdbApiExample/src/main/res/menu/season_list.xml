@@ -5,10 +5,19 @@
         android:icon="@drawable/ic_settings_applications_white_24dp"
         android:showAsAction="never" />
 
+    <item android:id="@+id/remove_button"
+        android:title="Remove From My List"
+        android:orderInCategory="200"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_remove_from_queue_white_24dp"
+        />
+
     <item android:id="@+id/add_button"
-        android:title="Add"
+        android:title="Add To My List"
         android:orderInCategory="200"
         android:showAsAction="ifRoom"
         android:icon="@drawable/ic_add_to_queue_white_24dp"
         />
+
+
 </menu>

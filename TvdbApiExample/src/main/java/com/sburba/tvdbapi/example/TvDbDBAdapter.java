@@ -20,6 +20,13 @@ public class TvDbDBAdapter {
         helper= new TvDbConnectionHelper(context);
     }
 
+    public int deleteRow(int sId){
+        SQLiteDatabase db=helper.getWritableDatabase();
+        String[] whereArgs={Integer.toString(sId)};
+        int count =db.delete(TvDbConnectionHelper.SERIES_TABLE_NAME,TvDbConnectionHelper.SERIES_ID + "=?",whereArgs);
+
+        return  count;
+    }
 
     public long InsertMySeriesData(int sid,String stitle,String imgurl){
         SQLiteDatabase db=helper.getWritableDatabase();
@@ -30,7 +37,7 @@ public class TvDbDBAdapter {
         cv.put(TvDbConnectionHelper.LAST_UPDATE_DATE,
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
-        long id=db.insert(TvDbConnectionHelper.SERIES_TABLE_NAME,null,cv);
+        long id=db.insert(TvDbConnectionHelper.SERIES_TABLE_NAME, null, cv);
         return id;
     }
 
@@ -38,9 +45,11 @@ public class TvDbDBAdapter {
         SQLiteDatabase db=helper.getWritableDatabase();
         String[] Columns={TvDbConnectionHelper.SERIES_TITLE};
         String title="-99";
+
         Cursor cursor=db.query(TvDbConnectionHelper.SERIES_TABLE_NAME, Columns, TvDbConnectionHelper.SERIES_ID + " = '" + Integer.toString(sid) + "'", null, null, null, null);
         while(cursor.moveToNext()){
             int index_title=cursor.getColumnIndex(TvDbConnectionHelper.SERIES_TITLE);
+
             title=cursor.getString(index_title);
         }
 
@@ -50,6 +59,22 @@ public class TvDbDBAdapter {
         else{
             return false;
         }
+    }
+
+    public String[] getSeriesTitle(int sid){
+        SQLiteDatabase db=helper.getWritableDatabase();
+        String[] Columns={TvDbConnectionHelper.SERIES_TITLE,TvDbConnectionHelper.SERIES_IMG};
+        String title="-99";
+        String imgurl="-99";
+        Cursor cursor=db.query(TvDbConnectionHelper.SERIES_TABLE_NAME, Columns, TvDbConnectionHelper.SERIES_ID + " = '" + Integer.toString(sid) + "'", null, null, null, null);
+        while(cursor.moveToNext()){
+            int index_title=cursor.getColumnIndex(TvDbConnectionHelper.SERIES_TITLE);
+            int index_img=cursor.getColumnIndex(TvDbConnectionHelper.SERIES_IMG);
+            title=cursor.getString(index_title);
+            imgurl=cursor.getString(index_img);
+        }
+        String[] result={title,imgurl};
+        return result;
     }
 
     public List<MySeriesInformation> getAllSeries(List<MySeriesInformation> data ){

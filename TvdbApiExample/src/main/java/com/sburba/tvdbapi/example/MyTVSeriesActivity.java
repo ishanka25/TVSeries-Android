@@ -36,8 +36,11 @@ public class MyTVSeriesActivity extends Activity {
                     public void onItemClick(View view, int position) {
 
                         Log.e("Clicked Position : ", "" + position);
-                        int sID = data.get(position).getsId();
-                        showSeasons(sID);
+                        if(position>=0) {
+                            int sID = data.get(position).getsId();
+
+                            showSeasons(sID);
+                        }
                     }
                 })
         );
