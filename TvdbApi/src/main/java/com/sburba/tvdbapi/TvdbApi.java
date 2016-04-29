@@ -371,7 +371,11 @@ public class TvdbApi {
     }
 
     private String getLocalZipPath(int seriesId) {
-        return LOCAL_PATH +Integer.toString(seriesId)+ "/en.zip";
+
+
+            return null;
+
+
     }
 
     public static enum SHOW_ORDER {DEFAULT, DVD, ABSOLUTE}

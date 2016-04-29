@@ -20,10 +20,51 @@ public class TvDbDBAdapter {
         helper= new TvDbConnectionHelper(context);
     }
 
+
+    public int deletellAirDates(){
+        SQLiteDatabase db=helper.getWritableDatabase();
+        this.InsertAirDates(99,99,99,99,99,"no plot",new Date());
+        int count =db.delete(TvDbConnectionHelper.AIRDATES_TABLE_NAME,null,null);
+
+        return  count;
+    }
+
+    public int deleteAirDates(int sId){
+
+        SQLiteDatabase db=helper.getWritableDatabase();
+        this.InsertAirDates(99,99,99,99,99,"no plot",new Date());
+        String[] whereArgs={Integer.toString(sId)};
+        int count =db.delete(TvDbConnectionHelper.AIRDATES_TABLE_NAME,TvDbConnectionHelper.SERIES_ID + "=?",whereArgs);
+
+        return  count;
+    }
+
+    public long InsertAirDates(int sid,int seasonid,int eid,int seasonno,int episodeno,String etitle,Date airDate){
+        SQLiteDatabase db=helper.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+
+        cv.put(TvDbConnectionHelper.SERIES_ID,sid);
+        cv.put(TvDbConnectionHelper.SEASON_ID,seasonid);
+        cv.put(TvDbConnectionHelper.EPISODE_ID,eid);
+        cv.put(TvDbConnectionHelper.SEASON_NO,seasonno);
+        cv.put(TvDbConnectionHelper.EPISODE_NO,episodeno);
+        cv.put(TvDbConnectionHelper.EPISODE_TITLE,etitle);
+
+        cv.put(TvDbConnectionHelper.AIR_DATE,
+
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(airDate));
+
+        long id=db.insert(TvDbConnectionHelper.AIRDATES_TABLE_NAME, null, cv);
+        return id;
+    }
+
+
+
+
     public int deleteRow(int sId){
         SQLiteDatabase db=helper.getWritableDatabase();
         String[] whereArgs={Integer.toString(sId)};
-        int count =db.delete(TvDbConnectionHelper.SERIES_TABLE_NAME,TvDbConnectionHelper.SERIES_ID + "=?",whereArgs);
+        int count =db.delete(TvDbConnectionHelper.SERIES_TABLE_NAME, TvDbConnectionHelper.SERIES_ID + "=?", whereArgs);
 
         return  count;
     }
@@ -98,18 +139,54 @@ public class TvDbDBAdapter {
         return data;
     }
 
+    public int[] getAllSeriesId( ){
+        SQLiteDatabase db=helper.getWritableDatabase();
+        String[] Columns={TvDbConnectionHelper.SERIES_ID};
+        int sid=-1;
+        Cursor cursor=db.query(TvDbConnectionHelper.SERIES_TABLE_NAME,Columns,null,null,null,null,null);
+        int[] data=new int[cursor.getCount()];
+        int index=0;
+        while(cursor.moveToNext()){
+            int index_sid=cursor.getColumnIndex(TvDbConnectionHelper.SERIES_ID);
+            sid=cursor.getInt(index_sid);
+            data[index]=sid;
+            index++;
+
+        }
+
+        return data;
+    }
+
+
+
     static class TvDbConnectionHelper extends SQLiteOpenHelper {
 
         private static final String DB_NMAE="TV_DB_LOCAL_DB";
         private static final int DB_VERSION=1;
 
         private static final String SERIES_TABLE_NAME="MY_SERIES";
+        private static final String AIRDATES_TABLE_NAME="EPISODE_AIRDATES";
+
+
         private static final String SERIES_ID="_sId";
         private static final String SERIES_TITLE="_sTitle";
         private static final String SERIES_IMG="_sImgUrl";
         private static final String LAST_UPDATE_DATE="_uDate";
+        private static final String SEASON_ID="_seasonId";
+        private static final String EPISODE_ID="_episodeId";
+        private static final String SEASON_NO="_seasonNo";
+        private static final String EPISODE_NO="_episodeNo";
+        private static final String AIR_DATE="_airDate";
+        private static final String EPISODE_TITLE="_eTitle";
+
         private static final String SERIES_TABLE_CREATE="CREATE TABLE "+SERIES_TABLE_NAME+" ("+SERIES_ID+" INTEGER PRIMARY KEY ,"+SERIES_TITLE +" VARCHAR(100) ,"+SERIES_IMG+" VARCHAR(255) ," +LAST_UPDATE_DATE+" DATE);";
         private static final String SERIES_TABLE_DROP="DROP TABLE "+SERIES_TABLE_NAME+" IF EXISTS";
+
+        private static final String AIR_DATES_TABLE_CREATE="CREATE TABLE "+AIRDATES_TABLE_NAME+
+                " ("+SERIES_ID+" INTEGER ,"+ SEASON_ID+" INTEGER ,"+EPISODE_ID+" INTEGER ,"+SEASON_NO+" INTEGER ,"+EPISODE_NO+" INTEGER ,"+
+                EPISODE_TITLE +" VARCHAR(100) ," +AIR_DATE+" DATE);";
+
+        private static final String AIR_DATES_TABLE_DROP="DROP TABLE "+AIRDATES_TABLE_NAME+" IF EXISTS";
 
 
         public TvDbConnectionHelper(Context context){
@@ -119,6 +196,7 @@ public class TvDbDBAdapter {
         public void onCreate(SQLiteDatabase db) {
             try{
                 db.execSQL(SERIES_TABLE_CREATE);
+                db.execSQL(AIR_DATES_TABLE_CREATE);
             }
             catch(SQLException e){
                 e.printStackTrace();
@@ -130,6 +208,7 @@ public class TvDbDBAdapter {
 
             try{
                 db.execSQL(SERIES_TABLE_DROP);
+                db.execSQL(AIR_DATES_TABLE_DROP);
                 onCreate(db);
             }
             catch(SQLException e){

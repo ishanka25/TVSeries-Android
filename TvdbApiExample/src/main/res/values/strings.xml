@@ -8,5 +8,6 @@
     <string name="title_activity_search__tv">Search a TV series</string>
     <string name="title_activity_my_tvseries">My Collection</string>
     <string name="title_activity_episode_info">episodeInfo</string>
+    <string name="title_activity_test">TestActivity</string>
 
 </resources>

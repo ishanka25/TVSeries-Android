@@ -76,7 +76,8 @@ public class MyTVSeriesActivity extends Activity {
                 startActivity(i);
                 return true;
             case R.id.myseries_settings:
-
+                RefreshAirDatesDB redb=new RefreshAirDatesDB(this);
+                redb.RefreshAllDates();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

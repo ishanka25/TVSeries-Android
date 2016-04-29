@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/myseries_settings"
-        android:title="@string/action_settings"
+        android:title="Refresh Data"
         android:orderInCategory="100"
         android:icon="@drawable/ic_settings_applications_white_24dp"
         android:showAsAction="never" />
