@@ -16,7 +16,7 @@ import java.util.List;
 public class MyTVSeriesActivity extends Activity {
     private RecyclerView recyclerView;
     private MySeriesAdapter adapter;
-
+    List<MySeriesInformation> data;
 
 
     @Override
@@ -34,10 +34,9 @@ public class MyTVSeriesActivity extends Activity {
                 new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        // Handles the f**king item click
+
                         Log.e("Clicked Position : ", "" + position);
-                        //TODO Pass the SID moron
-                        int sID = 274431; //this is the pussy where the season ID should insert
+                        int sID = data.get(position).getsId();
                         showSeasons(sID);
                     }
                 })
@@ -52,7 +51,7 @@ public class MyTVSeriesActivity extends Activity {
         seasonList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         seasonList.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        seasonList.putExtra("sID",sID);
+        seasonList.putExtra("sID", sID);
         startActivity(seasonList);
     }
 
@@ -83,7 +82,7 @@ public class MyTVSeriesActivity extends Activity {
     }
 
     public  List<MySeriesInformation> getData() {
-        List<MySeriesInformation> data = new ArrayList<>();
+         data = new ArrayList<>();
         int[] icons = {};
         String[] titles={};
 
