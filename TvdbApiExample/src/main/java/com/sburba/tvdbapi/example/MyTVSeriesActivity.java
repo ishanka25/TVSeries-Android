@@ -45,9 +45,6 @@ public class MyTVSeriesActivity extends Activity {
                 })
         );
 
-        Intent intent=new Intent(this,MyService.class);
-        startService(intent);
-
         Log.v("Example", "onCreate");
         getIntent().setAction("Already created");
     }
@@ -79,17 +76,17 @@ public class MyTVSeriesActivity extends Activity {
                 startActivity(i);
                 return true;
             case R.id.myseries_settings:
-                 RefreshAirDatesDB redb=new RefreshAirDatesDB(this);
+                RefreshAirDatesDB redb=new RefreshAirDatesDB(this);
                 redb.RefreshAllDates();
 
-              //  RefreshZips rezip=new RefreshZips(this);
-              //  rezip.RefreshAllZips();
+                //  RefreshZips rezip=new RefreshZips(this);
+                //  rezip.RefreshAllZips();
                 return true;
 
             case R.id.about_my_series:
                 startActivity(new Intent(this,AboutActivity.class));
                 return true;
-            
+
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -97,7 +94,7 @@ public class MyTVSeriesActivity extends Activity {
     }
 
     public  List<MySeriesInformation> getData() {
-         data = new ArrayList<>();
+        data = new ArrayList<>();
         int[] icons = {};
         String[] titles={};
 

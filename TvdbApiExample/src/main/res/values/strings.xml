@@ -7,8 +7,9 @@
     <string name="title_activity_season_list">Seasons</string>
     <string name="title_activity_search__tv">Search a TV series</string>
     <string name="title_activity_my_tvseries">My Collection</string>
-    <string name="title_activity_episode_info">episodeInfo</string>
+    <string name="title_activity_episode_info">Episode Details</string>
     <string name="title_activity_test">TestActivity</string>
-    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_splash_screen">Splash</string>
 
 </resources>
