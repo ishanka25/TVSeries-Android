@@ -6,6 +6,7 @@ This was Developed as an assignment in Mobile Application Development Module (CO
 This app can be used to view data about tv series & also can be used to get notifications on new episodes
 
 By Team : Fifth House
+----------------------
 Batch : UCD CS Batch 05
 
 Members
