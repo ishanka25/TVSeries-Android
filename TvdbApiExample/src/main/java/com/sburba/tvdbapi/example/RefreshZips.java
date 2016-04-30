@@ -1,7 +1,6 @@
 package com.sburba.tvdbapi.example;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.sburba.tvdbapi.TvdbApi;
 
@@ -36,13 +35,12 @@ public class RefreshZips{
                // getSeriesAirDatesToDb(data[i]);
             }
 
-            Toast.makeText(context,
-                    "DONE REFRESH",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,
+             //       "DONE REFRESH",
+              //      Toast.LENGTH_SHORT).show();
         }catch(Exception ex){
             ex.printStackTrace();
         }
-
     }
 
 

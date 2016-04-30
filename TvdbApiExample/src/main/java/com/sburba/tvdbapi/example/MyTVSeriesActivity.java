@@ -36,7 +36,7 @@ public class MyTVSeriesActivity extends Activity {
                     public void onItemClick(View view, int position) {
 
                         Log.e("Clicked Position : ", "" + position);
-                        if(position>=0) {
+                        if (position >= 0) {
                             int sID = data.get(position).getsId();
 
                             showSeasons(sID);
@@ -44,6 +44,9 @@ public class MyTVSeriesActivity extends Activity {
                     }
                 })
         );
+
+        Intent intent=new Intent(this,MyService.class);
+        startService(intent);
 
         Log.v("Example", "onCreate");
         getIntent().setAction("Already created");

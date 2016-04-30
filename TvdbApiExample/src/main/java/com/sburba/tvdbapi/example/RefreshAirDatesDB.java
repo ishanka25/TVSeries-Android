@@ -1,7 +1,6 @@
 package com.sburba.tvdbapi.example;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.sburba.tvdbapi.model.Episode;
 import com.sburba.tvdbapi.parser.EpisodeParser;
@@ -33,9 +32,9 @@ import java.util.Date;
                 getSeriesAirDatesToDb(data[i]);
             }
 
-            Toast.makeText(context,
-                    "DONE REFRESH",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,
+              //      "DONE REFRESH",
+                //    Toast.LENGTH_SHORT).show();
         }catch(Exception ex){
             ex.printStackTrace();
         }
