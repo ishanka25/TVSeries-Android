@@ -76,17 +76,17 @@ public class MyTVSeriesActivity extends Activity {
                 startActivity(i);
                 return true;
             case R.id.myseries_settings:
-                RefreshAirDatesDB redb=new RefreshAirDatesDB(this);
-                redb.RefreshAllDates();
-
-                //  RefreshZips rezip=new RefreshZips(this);
-                //  rezip.RefreshAllZips();
+                //RefreshAirDatesDB redb=new RefreshAirDatesDB(this);
+                //redb.RefreshAllDates();
+                this.startService(new Intent(this, MyNotificationService.class));
+              //  RefreshZips rezip=new RefreshZips(this);
+              //  rezip.RefreshAllZips();
                 return true;
 
             case R.id.about_my_series:
                 startActivity(new Intent(this,AboutActivity.class));
                 return true;
-
+            
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -94,7 +94,7 @@ public class MyTVSeriesActivity extends Activity {
     }
 
     public  List<MySeriesInformation> getData() {
-        data = new ArrayList<>();
+         data = new ArrayList<>();
         int[] icons = {};
         String[] titles={};
 
