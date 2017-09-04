@@ -2,7 +2,6 @@ TV SERIES
 ================
 This was Developed as an assignment in Mobile Application Development Module (COMP2007L)
 
-
 This app can be used to view data about tv series & also can be used to get notifications on new episodes
 
 By Team : Fifth House
@@ -23,5 +22,5 @@ Members
 
 
 
-Sam Burba's API for TVDB was used as the foundationof this app
+Sam Burba's API for TVDB was used as the foundation of this app.
 https://github.com/sburba/Tvdb-Api-Android
